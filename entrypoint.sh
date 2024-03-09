@@ -23,7 +23,7 @@ if [[ -z "$DOWNSTREAM_BRANCH" ]]; then
 fi
 
 if ! echo "$UPSTREAM_REPO" | grep '\.git'; then
-  UPSTREAM_REPO="https://github.com/${UPSTREAM_REPO_PATH}.git"
+  UPSTREAM_REPO="${GITHUB_SERVER_URL}/${UPSTREAM_REPO_PATH}.git"
 fi
 
 echo "UPSTREAM_REPO=$UPSTREAM_REPO"
