@@ -59,7 +59,11 @@ git push origin
 MERGE_RESULT=$(git merge ${MERGE_ARGS} upstream/${UPSTREAM_BRANCH})
 
 
-if [[ $MERGE_RESULT == "" ]] 
+if [[ $MERGE_RESULT != *"CONFLICT"* ]]
+then
+  echo "Merge failed with conflict. Fix it manually"
+  exit 1
+elif [[ $MERGE_RESULT == "" ]] 
 then
   exit 1
 elif [[ $MERGE_RESULT != *"Already up to date."* ]]
