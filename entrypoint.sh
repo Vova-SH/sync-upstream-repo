@@ -28,14 +28,16 @@ fi
 
 echo "UPSTREAM_REPO=$UPSTREAM_REPO"
 
-git clone "https://github.com/${GITHUB_REPOSITORY}.git" work
+host="$(echo ${GITHUB_SERVER_URL} | awk -F[/:] '{print $4}')"
+
+git clone "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git" work
 cd work || { echo "Missing work dir" && exit 2 ; }
 
 git config user.name "${GITHUB_ACTOR}"
-git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+git config user.email "${GITHUB_ACTOR}@users.noreply.${host}"
 git config --local user.password ${GITHUB_TOKEN}
 
-git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@${host}/${GITHUB_REPOSITORY}.git"
 
 git remote add upstream "$UPSTREAM_REPO"
 git fetch ${FETCH_ARGS} upstream
