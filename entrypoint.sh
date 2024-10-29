@@ -30,12 +30,12 @@ echo "UPSTREAM_REPO=$UPSTREAM_REPO"
 
 host="$(echo ${GITHUB_SERVER_URL} | awk -F[/:] '{print $4}')"
 
-git clone "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git" work
-cd work || { echo "Missing work dir" && exit 2 ; }
-
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.${host}"
 git config --local user.password ${GITHUB_TOKEN}
+
+git clone "https://x-access-token:${GITHUB_TOKEN}@${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git" work
+cd work || { echo "Missing work dir" && exit 2 ; }
 
 git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@${host}/${GITHUB_REPOSITORY}.git"
 
