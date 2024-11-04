@@ -31,6 +31,8 @@ echo "UPSTREAM_REPO=$UPSTREAM_REPO"
 host="$(echo ${GITHUB_SERVER_URL} | awk -F[/:] '{print $4}')"
 repo_with_token="https://x-access-token:${GITHUB_TOKEN}@${host}/${GITHUB_REPOSITORY}.git"
 
+echo "repo_with_token=$repo_with_token"
+
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.${host}"
 git config --local user.password ${GITHUB_TOKEN}
