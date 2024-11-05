@@ -33,12 +33,12 @@ repo_with_token="https://x-access-token:${GITHUB_TOKEN}@${host}/${GITHUB_REPOSIT
 
 echo "repo_with_token=$repo_with_token"
 
+git clone "$repo_with_token" work
+cd work || { echo "Missing work dir" && exit 2 ; }
+
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.${host}"
 git config --local user.password ${GITHUB_TOKEN}
-
-git clone "$repo_with_token" work
-cd work || { echo "Missing work dir" && exit 2 ; }
 
 git remote set-url origin "$repo_with_token"
 
